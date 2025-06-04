@@ -1,7 +1,7 @@
 // Copyright 2022 NNTU-CS
-#include "tree.h"
 #include <vector>
 #include <memory>
+#include "tree.h"
 
 PMTree::PMTree(const std::vector<char>& elements) {
   if (elements.empty()) {
@@ -76,7 +76,8 @@ std::vector<char> getPerm1(const PMTree& tree, int num) {
 }
 
 std::vector<char> getPerm2(const PMTree& tree, int num) {
-  if (num < 1 || !tree.getRoot() || static_cast<size_t>(num) > tree.getTotalPermutations()) {
+  if (num < 1 || !tree.getRoot() ||
+      static_cast<size_t>(num) > tree.getTotalPermutations()) {
     return {};
   }
 
