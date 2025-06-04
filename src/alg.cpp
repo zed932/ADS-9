@@ -20,7 +20,7 @@ PMTree::PMTree(const std::vector<char>& elements) {
 }
 
 void PMTree::buildTree(std::shared_ptr<Node> parent,
-                      const std::vector<char>& remaining) {
+                       const std::vector<char>& remaining) {
   for (size_t i = 0; i < remaining.size(); ++i) {
     auto child = std::make_shared<Node>(remaining[i]);
     parent->children.push_back(child);
@@ -36,8 +36,8 @@ void PMTree::buildTree(std::shared_ptr<Node> parent,
 }
 
 void collectPermutations(const std::shared_ptr<PMTree::Node>& node,
-                        std::vector<char>& current,
-                        std::vector<std::vector<char>>& result) {
+                         std::vector<char>& current,
+                         std::vector<std::vector<char>>& result) {
   if (node->value != '\0') {
     current.push_back(node->value);
   }
@@ -87,12 +87,15 @@ std::vector<char> PMTree::getPerm2(int num) const {
   while (!current->children.empty()) {
     size_t n = current->children.size();
     size_t branch_size = 1;
-    for (size_t i = 2; i < n; ++i) {
-      branch_size *= i;
+    for (size_t i = 1; i < n; ++i) {
+      branch_size *= i; // Исправлено: правильный расчет размера ветки
     }
-    branch_size = (n > 1) ? branch_size * (n-1) : 1;
 
     size_t selected = remaining_num / branch_size;
+    if (selected >= n) {
+      return {}; // Проверка на выход за границы
+    }
+    
     result.push_back(current->children[selected]->value);
     remaining_num %= branch_size;
     current = current->children[selected];
