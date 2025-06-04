@@ -5,28 +5,26 @@
 #include <vector>
 #include <memory>
 
-class PermutationTree {
+class PMTree {
  public:
-  struct TreeNode {
+  struct Node {
     char value;
-    std::vector<std::shared_ptr<TreeNode>> children;
-    explicit TreeNode(char val) : value(val) {}
+    std::vector<std::shared_ptr<Node>> children;
+    explicit Node(char val) : value(val) {}
   };
 
-  explicit PermutationTree(const std::vector<char>& symbols);
-  std::vector<std::vector<char>> getAllPermutations() const;
-  std::vector<char> getPermutationByIndex1(int index) const;
-  std::vector<char> getPermutationByIndex2(int index) const;
-  int getPermutationCount() const;
+  explicit PMTree(const std::vector<char>& elements);
+  std::vector<std::vector<char>> getAllPerms() const;
+  std::vector<char> getPerm1(int num) const;
+  std::vector<char> getPerm2(int num) const;
+  size_t getTotalPermutations() const;
 
  private:
-  std::shared_ptr<TreeNode> root;
-  int permutationCount;
+  std::shared_ptr<Node> root;
+  size_t total_permutations;
 
-  void buildTree(std::shared_ptr<TreeNode> node,
+  void buildTree(std::shared_ptr<Node> parent,
                 const std::vector<char>& remaining);
 };
-
-std::vector<char> generateSymbolSet(int size);
 
 #endif  // INCLUDE_TREE_H_
