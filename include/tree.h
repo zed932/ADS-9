@@ -24,7 +24,7 @@ class PMTree {
   size_t total_permutations;
 
   void buildTree(std::shared_ptr<Node> parent,
-                const std::vector<char>& remaining);
+                 const std::vector<char>& remaining);
 };
 
 #endif  // INCLUDE_TREE_H_
