@@ -55,45 +55,45 @@ void collectPermutations(const std::shared_ptr<PMTree::Node>& node,
   }
 }
 
-std::vector<std::vector<char>> PMTree::getAllPerms() const {
+std::vector<std::vector<char>> getAllPerms(const PMTree& tree) {
   std::vector<std::vector<char>> result;
-  if (!root) {
+  if (!tree.getRoot()) {
     return result;
   }
 
   std::vector<char> current;
-  collectPermutations(root, current, result);
+  collectPermutations(tree.getRoot(), current, result);
   return result;
 }
 
-std::vector<char> PMTree::getPerm1(int num) const {
-  if (num < 1 || static_cast<size_t>(num) > total_permutations) {
+std::vector<char> getPerm1(const PMTree& tree, int num) {
+  if (num < 1 || static_cast<size_t>(num) > tree.getTotalPermutations()) {
     return {};
   }
 
-  auto all_perms = getAllPerms();
+  auto all_perms = getAllPerms(tree);
   return all_perms[num - 1];
 }
 
-std::vector<char> PMTree::getPerm2(int num) const {
-  if (num < 1 || !root || static_cast<size_t>(num) > total_permutations) {
+std::vector<char> getPerm2(const PMTree& tree, int num) {
+  if (num < 1 || !tree.getRoot() || static_cast<size_t>(num) > tree.getTotalPermutations()) {
     return {};
   }
 
   std::vector<char> result;
-  auto current = root;
+  auto current = tree.getRoot();
   int remaining_num = num - 1;
 
   while (!current->children.empty()) {
     size_t n = current->children.size();
     size_t branch_size = 1;
     for (size_t i = 1; i < n; ++i) {
-      branch_size *= i; // Исправлено: правильный расчет размера ветки
+      branch_size *= i;
     }
 
     size_t selected = remaining_num / branch_size;
     if (selected >= n) {
-      return {}; // Проверка на выход за границы
+      return {};
     }
     
     result.push_back(current->children[selected]->value);
@@ -106,4 +106,8 @@ std::vector<char> PMTree::getPerm2(int num) const {
 
 size_t PMTree::getTotalPermutations() const {
   return total_permutations;
+}
+
+std::shared_ptr<PMTree::Node> PMTree::getRoot() const {
+  return root;
 }

@@ -11,14 +11,14 @@ int main() {
   results << "Function,Size,Time (seconds)\n";
 
   auto start = std::chrono::high_resolution_clock::now();
-  std::vector<std::vector<char>> perms = tree.getAllPerms();
+  std::vector<std::vector<char>> perms = getAllPerms(tree);
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> duration = end - start;
   results << "getAllPerms," << in.size() << "," << duration.count() << "\n";
 
   for (int i = 1; i <= perms.size(); ++i) {
     start = std::chrono::high_resolution_clock::now();
-    std::vector<char> result1 = tree.getPerm1(i);
+    std::vector<char> result1 = getPerm1(tree, 1);
     end = std::chrono::high_resolution_clock::now();
     duration = end - start;
     results << "getPerm1," << in.size() << "," << duration.count() << "\n";
@@ -26,7 +26,7 @@ int main() {
 
   for (int i = 1; i <= perms.size(); ++i) {
     start = std::chrono::high_resolution_clock::now();
-    std::vector<char> result2 = tree.getPerm2(i);
+    std::vector<char> result2 = getPerm2(tree, 2);
     end = std::chrono::high_resolution_clock::now();
     duration = end - start;
     results << "getPerm2," << in.size() << "," << duration.count() << "\n";
