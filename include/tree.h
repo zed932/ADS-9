@@ -14,10 +14,8 @@ class PMTree {
   };
 
   explicit PMTree(const std::vector<char>& elements);
-  std::vector<std::vector<char>> getAllPerms() const;
-  std::vector<char> getPerm1(int num) const;
-  std::vector<char> getPerm2(int num) const;
   size_t getTotalPermutations() const;
+  std::shared_ptr<Node> getRoot() const;
 
  private:
   std::shared_ptr<Node> root;
@@ -26,5 +24,9 @@ class PMTree {
   void buildTree(std::shared_ptr<Node> parent,
                  const std::vector<char>& remaining);
 };
+
+std::vector<std::vector<char>> getAllPerms(const PMTree& tree);
+std::vector<char> getPerm1(const PMTree& tree, int num);
+std::vector<char> getPerm2(const PMTree& tree, int num);
 
 #endif  // INCLUDE_TREE_H_
