@@ -96,7 +96,7 @@ std::vector<char> getPerm2(const PMTree& tree, int num) {
     if (selected >= n) {
       return {};
     }
-    
+
     result.push_back(current->children[selected]->value);
     remaining_num %= branch_size;
     current = current->children[selected];

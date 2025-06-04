@@ -1,8 +1,8 @@
 // Copyright 2022 NNTU-CS
-#include "tree.h"
 #include <vector>
 #include <chrono>
 #include <fstream>
+#include "tree.h"
 
 int main() {
   std::vector<char> in = {'1', '3', '5', '7'};
