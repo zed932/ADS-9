@@ -39,8 +39,8 @@ int main() {
     end = std::chrono::high_resolution_clock::now();
     double duration2 = std::chrono::duration<double>(end - start).count();
 
-    results << n << "," << duration_all << "," << duration1 << ","
-            << duration2 << "\n";
+    results << n << "," << duration_all << ","
+            << duration1 << "," << duration2 << "\n";
   }
 
   results.close();
