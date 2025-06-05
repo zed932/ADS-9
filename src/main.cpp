@@ -26,7 +26,8 @@ int main() {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, static_cast<int>(perms.size()) - 1);
+    std::uniform_int_distribution<int> dist(
+        0, static_cast<int>(perms.size()) - 1);
     auto random_index = dist(gen);
 
     start = std::chrono::high_resolution_clock::now();
