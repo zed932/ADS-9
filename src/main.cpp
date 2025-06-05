@@ -1,3 +1,4 @@
+// Copyright 2022 NNTU-CS
 #include <vector>
 #include <chrono>
 #include <fstream>
@@ -6,7 +7,8 @@
 
 int main() {
   const std::vector<int> sizes = {1, 2, 3, 4, 5, 6, 7, 8};
-  std::ofstream results("/Users/zed932/Documents/Учеба/С++/ads9test/ads9test/experiement.csv");
+  std::ofstream results(
+      "/Users/zed932/Documents/Учеба/С++/ads9test/ads9test/experiement.csv");
   results << "n,getAllPerms,getPerm1,getPerm2\n";
 
   for (int n : sizes) {
@@ -37,7 +39,8 @@ int main() {
     end = std::chrono::high_resolution_clock::now();
     double duration2 = std::chrono::duration<double>(end - start).count();
 
-    results << n << "," << duration_all << "," << duration1 << "," << duration2 << "\n";
+    results << n << "," << duration_all << "," << duration1 << ","
+            << duration2 << "\n";
   }
 
   results.close();
