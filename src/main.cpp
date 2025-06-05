@@ -1,36 +1,43 @@
-// Copyright 2022 NNTU-CS
 #include <vector>
 #include <chrono>
 #include <fstream>
+#include <random>
 #include "tree.h"
 
 int main() {
-  std::vector<char> in = {'1', '3', '5', '7'};
-  PMTree tree(in);
+  const std::vector<int> sizes = {1, 2, 3, 4, 5, 6, 7, 8};
+  std::ofstream results("/Users/zed932/Documents/Учеба/С++/ads9test/ads9test/experiement.csv");
+  results << "n,getAllPerms,getPerm1,getPerm2\n";
 
-  std::ofstream results("experiement.csv");
-  results << "Function,Size,Time (seconds)\n";
+  for (int n : sizes) {
+    std::vector<char> in;
+    for (int i = 0; i < n; ++i) {
+      in.push_back('1' + i);
+    }
 
-  auto start = std::chrono::high_resolution_clock::now();
-  std::vector<std::vector<char>> perms = getAllPerms(tree);
-  auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> duration = end - start;
-  results << "getAllPerms," << in.size() << "," << duration.count() << "\n";
+    PMTree tree(in);
 
-  for (int i = 1; i <= static_cast<int>(perms.size()); ++i) {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::vector<std::vector<char>> perms = getAllPerms(tree);
+    auto end = std::chrono::high_resolution_clock::now();
+    double duration_all = std::chrono::duration<double>(end - start).count();
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, static_cast<int>(perms.size()) - 1);
+    auto random_index = dist(gen);
+
     start = std::chrono::high_resolution_clock::now();
-    std::vector<char> result1 = getPerm1(tree, i);
+    std::vector<char> result1 = getPerm1(tree, random_index);
     end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-    results << "getPerm1," << in.size() << "," << duration.count() << "\n";
-  }
+    double duration1 = std::chrono::duration<double>(end - start).count();
 
-  for (int i = 1; i <= static_cast<int>(perms.size()); ++i) {
     start = std::chrono::high_resolution_clock::now();
-    std::vector<char> result2 = getPerm2(tree, i);
+    std::vector<char> result2 = getPerm2(tree, random_index);
     end = std::chrono::high_resolution_clock::now();
-    duration = end - start;
-    results << "getPerm2," << in.size() << "," << duration.count() << "\n";
+    double duration2 = std::chrono::duration<double>(end - start).count();
+
+    results << n << "," << duration_all << "," << duration1 << "," << duration2 << "\n";
   }
 
   results.close();
